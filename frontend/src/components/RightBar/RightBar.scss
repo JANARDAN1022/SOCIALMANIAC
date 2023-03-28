@@ -1,0 +1,114 @@
+@import '../../App.scss';
+
+
+  .rightbarwrapper{
+    @include themify($theme){
+        background-color: themed('bg');
+        .Rightbar{
+            
+            
+     @include mobile{
+        display: none;
+     }
+
+     @include Tablet{
+        display: none;
+     }
+
+    flex:3;
+    position: sticky;
+    top:50px;
+    overflow: scroll;
+    &::-webkit-scrollbar{
+       display: none;
+       
+    }
+    height: calc(100vh - 70px);
+    background-color: themed("bgsoft");
+        
+    .container{
+        .onlinefriends{
+        margin-top: 10px;
+        }
+        .LatestAcitivites{
+         margin-top: 10px;
+        }
+        .SuggestionsForYou{
+            margin-bottom:10px;
+        }
+        .item{
+            padding: 10px;
+            box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.09);
+            background-color: themed("bg");
+        
+
+           p{
+            color:themed("textcolorsoft");
+           }
+            span{
+            color:themed("textcolor");
+            }
+            .user{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin: 20px 0px;
+
+                .userinfo{
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    position: relative;
+
+                    img{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                object-fit: cover;      
+                    }
+                    .online{
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        background-color: limegreen;
+                        position: absolute;
+                        top:0;
+                        left:29px;
+                    }
+
+                    span{
+                        font-weight:500; 
+                        color: themed("textcolor");
+                    }
+                }
+                .buttons{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    button{
+                        border: none;
+                        padding: 5px;
+                        color:white;
+                        cursor: pointer;
+
+                    &:first-child{
+                        background-color: #5271ff;
+                    }
+                    &:last-child{
+                        background-color: #f0544f;
+                    }
+                    }
+                    
+                }
+            
+        }
+     }
+    }
+    
+
+
+
+    }
+  }
+}

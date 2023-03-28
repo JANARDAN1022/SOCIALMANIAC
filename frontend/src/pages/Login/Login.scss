@@ -1,0 +1,134 @@
+@import '../../App.scss';
+.LoginPage{
+    height: 100vh;
+    background:linear-gradient(rgb(222, 98, 98) , rgb(255, 184, 140));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .LoginCard{
+        border-radius: 5px;
+        background-color: white;
+        display: flex;
+        width: 50%;
+        min-height: 550px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        overflow: hidden;
+
+        @include mobile{
+          width: 500px;
+          margin-right: 20px;
+          margin-left: 10px;
+        }
+
+        @include Tablet{
+         width: 600px;
+        }
+    
+        
+      .Left{
+        flex:1;
+        background:linear-gradient(rgba(222, 98, 98,0.5) , rgba(255, 184, 140,0.2)), url("https://images.pexels.com/photos/5409715/pexels-photo-5409715.jpeg?auto=compress&cs=tinysrgb&w=600") center;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        gap: 20px;
+        color:white;
+
+        @include mobile{
+        width: 48%;
+        gap: 20px;
+        padding: 10px;
+        }
+
+        
+        h2{
+        font-size: 35px;
+        line-height: 50px;
+        }
+        p{
+        color:white;
+        font-size: 20px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        }
+        span{
+       font-size: 18px;
+       margin-top: 30px;
+
+        }
+        button{
+         width:100px;
+         padding: 5px;
+         border: none;
+        background-color: rgba(222, 98, 98,0.8) ;
+         color:white; 
+         border-radius: 5px;
+         transition: all 100ms ease;
+         
+        }
+        button:hover{
+            cursor: pointer;
+            background-color:rgb(222, 98, 98,);
+            transform: scale(1.01);
+            
+        }
+      } 
+
+
+     .Right{
+        flex:1;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        justify-content: center;
+        
+        @include mobile{
+         gap: 30px;
+         padding: 20px;
+        }
+
+       
+        
+        h1{
+         color:rgba(222, 98, 98,0.8)
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            gap:30px;
+
+            input{
+                height: 50px;
+                border: none;
+               border-bottom: 1px solid black;
+               outline: none;
+
+               @include mobile{
+                 width: 90%;            
+               }
+       
+              
+            }
+            button{
+                padding: 5px;
+             width: 100px;
+             height: 30px;
+             background-color: rgb(222, 98, 98,0.9);
+             color: white;
+             border: none;
+             border-radius: 5px;
+             margin-top: 20px;
+             transition: all 100ms ease;
+            }
+            button:hover{
+                cursor: pointer;
+                transform: scale(1.01);
+                background-color: rgb(222,98,98);
+            }
+        }       
+
+     }  
+    }
+}

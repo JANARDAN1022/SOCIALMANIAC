@@ -1,0 +1,105 @@
+@import '../../App.scss';
+
+
+.Navbar{
+  @include themify($theme){
+   display: flex;
+   justify-content: space-between;
+   padding: 10px 20px;
+   height: 50px;
+   border-bottom: 1px solid themed("border");
+   position: sticky;
+   top: 0;
+   background-color: themed("bg");
+   color: themed("textcolor");
+   z-index: 1;
+  
+   
+    .left{
+     display: flex;
+     align-items: center;
+     gap:30px;
+
+     @include mobile{
+      gap: 15px;
+   }
+
+     span{
+       font-weight: bold;
+       font-size: 20px;
+       color: rgb(222,98,98);
+
+       @include mobile{
+        font-size: 15px;
+     }
+     }
+
+     .search{
+        display: flex;
+        align-items: center;
+        gap:10px;
+        border: 1px solid themed("border");
+
+        @include mobile{
+         
+  }
+
+  @include Tablet{
+    width: 28px;
+ }
+       
+        input{
+    background-color:transparent;
+    color:themed("textcolor");
+    outline: none;
+    border: none;
+    width: 500px;
+        
+    @include mobile{
+      display: none;
+   }
+       
+        }
+     }
+     
+     }
+    
+
+    .right{
+        display: flex;
+        align-items: center;
+        gap:20px;
+
+        @include mobile{
+          gap: 8px;
+       }
+       
+       .LogoutNavbarbtn{
+         color: themed('textcolor');
+      background-color: themed('bg');
+      border: none;
+      cursor: pointer;
+     
+       }
+      .user{
+        display: flex;
+        align-items: center;
+        gap:10px;
+        font-weight: 500;
+
+        @include Tablet{
+          display: none;
+       }
+
+        img{
+           width: 30px;
+           height:30px;
+           object-fit: cover;
+           border-radius: 50%;
+        }
+        
+
+      }
+    }
+ }
+}
