@@ -23,10 +23,12 @@ const Profile = () => {
    const userId = parseInt(useLocation().pathname.split("/")[2]);
    const {currentuser} = useContext(AuthContext);
  
-   const {isLoading,error,data } = useQuery(['user'],async ()=>{
+   const {isLoading,error,data } = useQuery(['user',userId],async ()=>{
     const res = await makeRequest.get(`/users/find/${userId}`);
   return res.data;
   
+},{
+  staleTime: 0,
 })
 
 const {isLoading: isLoadingRelationship,data: RelationshipData } = useQuery(['relationship'],async ()=>{
@@ -94,7 +96,7 @@ const handlefollow =()=>{
             <div className="info">
               <div className="item">
                 <PlaceIcon className='Place'/>
-                <span>{data.city}</span>
+                <span>{data.location}</span>
               </div>
               <div className="item">
                 <LanguageIcon className='Language'/>

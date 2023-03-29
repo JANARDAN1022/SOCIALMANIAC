@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from 'react'
+import React, { useContext} from 'react'
 import './LeftBar.scss';
 import Friends from '../../Assets/Friends.png';
 import Groups from '../../Assets/Groups.png';
@@ -29,17 +29,15 @@ const LeftBar = () => {
    const {currentuser} = useContext(AuthContext);
 
    
-   const user = JSON.parse(localStorage.getItem("user"));
-const userId = user.id;
-   const {isLoading,error,data,refetch } = useQuery(['user'],async ()=>{
+   /*const user = JSON.parse(localStorage.getItem("user"));
+const userId = user.id;*/
+  const userId = currentuser.id;
+   const {isLoading,error,data } = useQuery(['user'],async ()=>{
     const res = await makeRequest.get(`/users/find/${userId}`);
   return res.data;
    });
 
-   useEffect(() => {
-    refetch();
-  }, [currentuser, refetch]);
-
+   
 
  
 
@@ -53,8 +51,8 @@ const userId = user.id;
       
       <div className="menu">  
       <div className="user">
-      <Link to={`/profile/${userId}`}> <img style={{cursor:'pointer'}} src={`/uploads/${currentuser.profilepicture  || data.profilepicture}`} alt="pic"/> </Link>
-      <span>{currentuser.name}</span>
+      <Link to={`/profile/${userId}`}> <img style={{cursor:'pointer'}} src={`/uploads/${ data.profilepicture}`} alt="pic"/> </Link>
+      <span>{data.name}</span>
       </div> 
         <div className="item">
           <img src={Friends} alt='Pic' />

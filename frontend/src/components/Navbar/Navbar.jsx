@@ -42,6 +42,7 @@ const Navbar = () => {
   }
   }
   
+ 
   
   return (
     isLoading?"loading..."
@@ -70,7 +71,7 @@ const Navbar = () => {
      <NotificationsOutlinedIcon  />
      <div className="user">
       <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-      <span>{currentuser.name}</span>
+      <span>{data.name}</span>
      </div>
      </div>
 

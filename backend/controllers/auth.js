@@ -43,9 +43,10 @@ exports.login = (req,res)=>{
         const token = jwt.sign({id:data[0].id},process.env.SEC_KEY);
 
         const {password, ...others} =data[0];
-
+          
         res.cookie("accessToken",token,{
             httpOnly: true,
+           // expires: new Date(Date.now() + 10 * 1000) // Set to expire after 10 seconds
         }).status(200).json(others);
     })
 }

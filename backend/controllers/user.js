@@ -42,8 +42,8 @@ exports.Updateuser = (req,res)=>{
             queryParams.push(req.body.profilepicture);
         }
 
-        if (req.body.city) {
-            q += `city=?,`;
+        if (req.body.location) {
+            q += `location=?,`;
             queryParams.push(req.body.city);
         }
 

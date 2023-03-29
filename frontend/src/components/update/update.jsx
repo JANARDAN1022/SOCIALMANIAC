@@ -10,11 +10,11 @@ const Update = ({setopenUpdate,user}) => {
     const[profile,setprofile]=useState(null);
     const[update,setupdate]=useState({
         name:"",
-        city:"",
+        location:"",
         website:""
     });
 
-    const upload = async (file)=>{
+    const upload =async (file)=>{
         try {
            const formData = new FormData();
            formData.append("file",file)
@@ -58,17 +58,20 @@ const Update = ({setopenUpdate,user}) => {
    
   return (
     <div className='update'>
-        Update UserInfo
-        <button className='cancel' onClick={()=>setopenUpdate(false)}>X</button>
-   
+       <button className='cancel' onClick={()=>setopenUpdate(false)}>X</button>
+       <h4 className='Accountdetailsh4'> UPDATE  ACCOUNT  DETAILS </h4>
+       <br />
+       <hr />
+        <div className="form">
         <form >
-            <input type="file" onChange={(e)=>setcover(e.target.files[0])}/>
-            <input type="file" onChange={(e)=>setprofile(e.target.files[0])}/>
-            <input type="text" placeholder='name'  name='name' onChange={handlechange} />
-            <input type="text" placeholder='city' name='city' onChange={handlechange}/>
-            <input type="text" placeholder='website' name='website' onChange={handlechange}/>
-            <button className='cancel' onClick={handlesubmit}>Update</button>
+         <h4>NEW COVER-PICTURE:</h4>   <input  className='inputfile' type="file" onChange={(e)=>setcover(e.target.files[0])}/>
+         <h4>NEW PROFILE-PICTURE :</h4>   <input  className='inputfile' type="file" onChange={(e)=>setprofile(e.target.files[0])}/>
+         <h4 className='h4newname'> NEW NAME : </h4> <input autoComplete='off' type="text" placeholder='NAME'  name='name' onChange={handlechange} />
+         <h4 className='h4location'> NEW LOCATION : </h4> <input autoComplete='off' type="text" placeholder='LOCATION' name='location' onChange={handlechange}/>
+         <h4 className='h4website'> NEW WEBSITE/PROMOTION : </h4> <input autoComplete='off' type="text" placeholder='WEBSITE/PROMOTION' name='website' onChange={handlechange}/>
+            <button className='updatebtn' onClick={handlesubmit}>Update</button>
         </form>
+        </div>
       </div>
   )
 }

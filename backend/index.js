@@ -17,6 +17,10 @@ dotenv.config({path:"C:/Users/janar/OneDrive/Desktop/SocialManiac/backend/Config
 const app = express();
 
 // middlewares
+
+
+
+
 app.use((req,res,next)=>{
     res.header("Access-Control-Allow-Credentials", true);
     next();
@@ -25,7 +29,9 @@ app.use((req,res,next)=>{
 app.use(express.json());
 app.use(cors({
     origin:"http://localhost:3000",
+    
 }));
+
 app.use(cookieParser());
 
 const storage = multer.diskStorage({

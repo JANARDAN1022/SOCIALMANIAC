@@ -18,13 +18,19 @@ const [showComment,setshowComment]=useState(false);
 const [showMore,setshowMore]=useState(false);
 const {currentuser} = useContext(AuthContext);
 
+/*const userId = currentuser.id;
+const {data:userData } = useQuery(['user'],async ()=>{
+ const res = await makeRequest.get(`/users/find/${userId}`);
+return res.data;
+});*/
+
 const {isLoading,error,data } = useQuery(['likes', post.id],async ()=>{
     const res = await makeRequest.get(`/likes/?postId=${post.id}`);
   return res.data;
   
 })
 
-const {data:commentsdata } = useQuery(['comments'],async ()=>{
+const {data:commentsdata } = useQuery(['comments',post.id],async ()=>{
   const res = await makeRequest.get(`/comments/?postid=${post.id}`);
 return res.data;
 
@@ -35,6 +41,7 @@ const queryClient = useQueryClient();
 
   const mutation = useMutation((liked) => {
     if(liked) return makeRequest.delete(`/likes/?postId=${post.id}`);
+
    return  makeRequest.post('/likes', {postId: post.id})
  
   }, {
@@ -70,7 +77,7 @@ Deletemutation.mutate(post.id)
         <div className="container">
         <div className="user">
             <div className="userinfo">
-          <Link to={`/profile/${post.userId}`}><img src={post.profilepicture} alt='' /> </Link>
+          <Link to={`/profile/${post.userId}`}><img src={`/uploads/${post.profilepicture}`} alt='' /> </Link>
 
            <div className="details">
             <Link to={`/profile/${post.userId}`} style={{textDecoration:'none', color:'inherit'}}>
@@ -84,7 +91,7 @@ Deletemutation.mutate(post.id)
         </div>
 
         <div className="content">
-            {post.img&& <img src={`./uploads/${post.img}`} alt='' />}
+            {post.img&& <img src={`/uploads/${post.img}`} alt='' />}
             
             <p>{post.description}</p>
         </div>
