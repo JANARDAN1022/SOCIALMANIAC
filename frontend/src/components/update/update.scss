@@ -17,6 +17,17 @@
     .Accountdetailsh4{
         margin-left: 30%;
     }
+    @include mobile{
+      
+        }
+     @include Tablet{
+        left:26%;
+        width: 65%;
+        .Accountdetailsh4{
+            margin-left: 17%;
+        }
+     }
+
 
     .cancel{
         margin-left:90%;
@@ -26,6 +37,12 @@
         color:themed('textcolor');
         cursor: pointer;
         transition: all 500ms ease;
+        @include mobile{
+     
+        }
+        @include Tablet{
+           width:60px;
+        }
     }
     .cancel:hover{
         color:#f0544f;
@@ -37,6 +54,13 @@
         background-color: rgba(82, 113, 255,0.8);
         color:themed('textcolor');
         cursor: pointer;
+
+        @include mobile{
+     
+        }
+        @include Tablet{
+           margin-left:80%;
+        }
     }
     .updatebtn:hover{
         transition: all 100ms ease;
@@ -48,22 +72,43 @@
           width: 20%;
           margin-left: 10px;
           height: 100%;
-          cursor: pointer;    
+          cursor: pointer; 
+          
+          @include mobile{
+     
+          }
+          @include Tablet{
+             width: 25%;
+          }
         }
         .inputfile::file-selector-button:hover{
             
             transition: all 300ms ease;
-            background-color: rgba(255,255,255,0.8);
+            background-color: rgba(255,255,255,0.7);
         }
         .inputfile{
             width: 100%;
             height:35px;
             padding: 8px;
             background-color: themed('bgsoft');
+
+            @include mobile{
+     
+            }
+            @include Tablet{
+              height: 32px;
+              padding: 6px;
+            }
         }
 
        h4{
         margin-top: 12px;
+        @include mobile{
+     
+        }
+        @include Tablet{
+           margin-top: 10px;
+        }
        }
 
        
@@ -73,7 +118,14 @@
           width: 60%;
           height: 25px;
           background-color: themed('bgsoft');
-          color:themed('textcolor');  
+          color:themed('textcolor'); 
+          
+          @include mobile{
+     
+          }
+          @include Tablet{
+             margin-top: 10px;
+          }
         }
     
     }

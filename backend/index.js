@@ -5,6 +5,7 @@ const userroutes = require('./routes/users.js');
 const Postroutes = require('./routes/posts.js');
 const likesroutes = require('./routes/likes.js');
 const commentsroutes = require('./routes/comments.js');
+const storiesroutes = require('./routes/stories.js');
 const authroutes = require('./routes/auth.js');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -57,6 +58,7 @@ app.use('/api/likes',likesroutes);
 app.use('/api/comments',commentsroutes);
 app.use('/api/auth',authroutes);
 app.use('/api/relationships',relationshiproutes);
+app.use('/api/stories',storiesroutes);
 
 const Port = process.env.PORT||4000;
 const Hostname = "localhost";

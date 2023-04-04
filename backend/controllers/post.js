@@ -1,6 +1,5 @@
 const db = require('../connect.js');
 const jwt = require('jsonwebtoken');
-//const moment = require('moment/moment.js');
 const moment = require('moment');
 
 

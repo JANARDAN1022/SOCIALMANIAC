@@ -37,7 +37,7 @@ $theme:(
     @return map-get($theme-map , $key );
 }
 
-@mixin mobile{
+/*@mixin mobile{
     @media (max-width:480px){
         @content;
     }
@@ -47,4 +47,38 @@ $theme:(
     @media (max-width:960px){
         @content;
     }
+}*/
+
+ /* Media Query for Mobile Devices */
+ @mixin mobile{
+  @media (max-width: 480px){
+      @content;   
 }
+ }
+  
+/* Media Query for low resolution  Tablets, Ipads */
+
+    @mixin Tablet{
+        @media (min-width: 481px) and (max-width: 767px) {
+            @content;   
+      }
+       }
+    
+
+  
+/* Media Query for Tablets Ipads portrait mode */
+@mixin Tablets{
+@media (min-width: 768px) and (max-width: 1024px){
+    @content;
+ } 
+}
+  
+/* Media Query for Laptops and Desktops 
+@media (min-width: 1025px) and (max-width: 1280px){
+
+}
+  
+ Media Query for Large screens 
+@media (min-width: 1281px) {
+
+}*/

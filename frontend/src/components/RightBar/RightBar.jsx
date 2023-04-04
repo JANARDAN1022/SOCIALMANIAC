@@ -180,4 +180,4 @@ return res.data;
   )
 }
 
-export default RightBar
+export default RightBar;
