@@ -1,0 +1,98 @@
+.ChatContent{
+    height: 580px;
+    display: flex;
+flex-wrap: wrap;
+gap: 10px;
+border-right:2px solid rgba(0,0,0,.3) ;
+
+}
+.MessagedivContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+overflow-y: scroll;
+}
+.ChatContentConatainerMe{
+  height: max-content;
+  align-self: flex-end;
+  margin-right: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: orange;
+
+max-width: 300px;
+
+}
+.ChatContentConatainersender{
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-self: flex-start;
+    margin-left: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: lightblue;
+    max-width: 250px;
+}
+.TEXTWITHIMG>p{
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left:3px ;
+}
+.MessageTextinfo>span{
+    font-size: 13px;
+    opacity: 0.7;
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: flex-end;
+    margin-right: 5px;
+}
+.MessageTextinfo{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.SendMessageInput{
+   display: flex;
+   align-items: center;
+   width: 95%;
+   margin-right: 5px;
+}
+.PlusIconMessage{
+    align-self: center;
+    margin-left: 5px;
+}
+.TEXTWITHIMG{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.MessageNavTEXTImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+.SendMessageInput>button{
+    padding: 5px;
+    margin-left: 10px;
+    border: none;
+    background-color: orange;
+    width: 100px;
+    height: 35px;
+    border-radius: 8px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+.SendMessageInput>button:hover{
+    background-color: rgba(255,165,0,0.8);
+}

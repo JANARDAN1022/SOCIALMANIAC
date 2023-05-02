@@ -25,7 +25,7 @@
 
 
       .container{
-       padding:20px ; 
+      
       
 
        hr{
@@ -35,9 +35,11 @@
         background-color:themed("border");
        }
         .menu{
+       width: 100%;
           display: flex;
          flex-direction:column ;
          gap: 20px;
+         padding: 14px 20px;
 
         span{
             font-size: 12px;
@@ -47,27 +49,51 @@
                display: flex;
                align-items: center;
                gap:10px;
-
+               
+               margin-right: 20px;
+               
+               
                 img{
-                width: 30px;
-                height: 30px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
                 object-fit: cover;
                 }
                 span{
-               font-size: 14px;     
+               font-size: 20px;
+                    
                 }
             }
             .item{
              display: flex;
              align-items: center;
              gap:10px;
-                img{
+             margin-top: 8px;
+
+             .HomeIcon{
+               color: themed('textcolor');
+               height: 35px;
+               width: 35px;
+             }
+             .FavoriteBorderOutlinedIcon{
+               color: themed('textcolor');
+               height: 30px;
                width: 30px;
+             }
+                .HOMELINK{
+               font-size: 20px;
+               margin-top: 5px;
+               text-decoration: none;
+               color: themed('textcolor');
                 }
-                span{
-               font-size: 14px;
-                }
+                
+                  .NOTIFICATIONLINK{
+                     font-size: 20px;
+                     text-decoration: none;
+                  
+                     color: themed('textcolor');
+                  }
+                
             }
         }
         .menu:hover{

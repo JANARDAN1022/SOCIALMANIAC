@@ -73,6 +73,10 @@
         @include mobile{
           gap: 8px;
        }
+       .MESSAGEICON{
+         transform: rotate(350deg) translate(0px, 0px);
+         cursor: pointer;
+       }
        
        .LogoutNavbarbtn{
          color: themed('textcolor');

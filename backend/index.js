@@ -7,9 +7,12 @@ const likesroutes = require('./routes/likes.js');
 const commentsroutes = require('./routes/comments.js');
 const storiesroutes = require('./routes/stories.js');
 const authroutes = require('./routes/auth.js');
+const chatroutes = require('./routes/chat.js');
+const MessageRoutes=require('./routes/Message.js');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
+
 
 
 
@@ -51,7 +54,10 @@ app.post('/api/upload', upload.single("file"), (req,res)=>{
     res.status(200).json(file.filename)
 
 })
+//database
+require('./MongoDb.js');
 
+//Routes
 app.use('/api/users',userroutes);
 app.use('/api/posts',Postroutes);
 app.use('/api/likes',likesroutes);
@@ -59,6 +65,9 @@ app.use('/api/comments',commentsroutes);
 app.use('/api/auth',authroutes);
 app.use('/api/relationships',relationshiproutes);
 app.use('/api/stories',storiesroutes);
+app.use('/api/chat/',chatroutes);
+app.use('/api/messages/',MessageRoutes);
+
 
 const Port = process.env.PORT||4000;
 const Hostname = "localhost";

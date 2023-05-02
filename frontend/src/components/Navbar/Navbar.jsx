@@ -5,7 +5,7 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Link,useNavigate } from 'react-router-dom';
@@ -66,12 +66,12 @@ const Navbar = () => {
   
      <div className="right">
         <button onClick={handleLogout} className='LogoutNavbarbtn' disabled={loading}>Logout</button>
-     <PersonOutlineOutlinedIcon onClick={()=>Navigate(`/Profile/${currentuser.id}`)}/>
-     <EmailOutlinedIcon />
-     <NotificationsOutlinedIcon  />
+     <PersonOutlineOutlinedIcon onClick={()=>Navigate(`/Profile/${currentuser.id}`)} style={{cursor:'pointer'}}/>
+     <SendRoundedIcon className='MESSAGEICON' onClick={()=>Navigate(`/chat`)}/>
+     <NotificationsOutlinedIcon style={{cursor:'pointer'}} />
      <div className="user">
       <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-      <span>{data.name}</span>
+      <span  onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}}>{data.name}</span>
      </div>
      </div>
 

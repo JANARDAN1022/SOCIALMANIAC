@@ -12,6 +12,7 @@ import RightBar from './components/RightBar/RightBar';
 import { DarkModeContext } from './context/DarkModeContext.js';
 import { AuthContext } from './context/authContext.js';
 import { QueryClient, QueryClientProvider } from 'react-query'
+import Chat from './pages/Chat/Chat.jsx';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -55,14 +56,19 @@ const App = () => {
     <Router>
       <QueryClientProvider client={queryClient}>
         <Routes>
-        <Route path='/Login' element={<Login />} />
+          <Route path='/Login' element={<Login />} />
           <Route path='/Register' element={<Register />} />
           <Route path='/' element={<ProtectedLayout />}>
-            <Route path='/' element={<Home />} />
-            <Route path='/Profile/:id' element={<Profile />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/Profile/:id' element={<Profile />} />
           </Route>
           </Routes>
       </QueryClientProvider>
+      <Routes>
+       
+      <Route path='/chat' element={<Chat />} />
+      
+      </Routes>
     </Router>
   );
 }
