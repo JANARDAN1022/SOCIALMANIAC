@@ -11,6 +11,7 @@ import moment from 'moment';
 import {useQuery,useMutation,useQueryClient } from 'react-query';
 import {makeRequest} from '../../axios';
 import {AuthContext} from '../../context/authContext';
+import ALTprofile from '../../Assets/ALTprofile.jpg'
 
 
 const Post = ({post}) => {
@@ -77,7 +78,7 @@ Deletemutation.mutate(post.id)
         <div className="container">
         <div className="user">
             <div className="userinfo">
-          <Link to={`/profile/${post.userId}`}><img src={`/uploads/${post.profilepicture}`} alt='' /> </Link>
+          <Link to={`/profile/${post.userId}`}><img src={post.profilepicture? `/uploads/${post.profilepicture}`:ALTprofile} alt='' /> </Link>
 
            <div className="details">
             <Link to={`/profile/${post.userId}`} style={{textDecoration:'none', color:'inherit'}}>

@@ -1,12 +1,11 @@
 import "./Share.scss";
-import img from "../../Assets/img.png";
-import map from "../../Assets/map.png";
-import friend from "../../Assets/friend.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useQuery,useMutation, useQueryClient } from 'react-query';
 import { makeRequest } from '../../axios';
 import { useNavigate } from "react-router-dom";
+import ALTprofile from '../../Assets/ALTprofile.jpg';
+import {AiOutlinePlus} from 'react-icons/ai';
 
 
 const Share = () => {
@@ -69,7 +68,7 @@ const Share = () => {
         <div className="top">
           <div className="left">
             {isLoading?"loading":error?"try later":
-          <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} src={`/uploads/${userdata.profilepicture}`} style={{cursor:"pointer"}} alt="pic"/>
+          <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} src={userdata.profilepicture? `/uploads/${userdata.profilepicture}`:ALTprofile} style={{cursor:"pointer"}} alt="pic"/>
             }
           <input type="text" value={description} placeholder={`What's on your mind ${currentuser.name}?`} onChange={(e) => setdescription(e.target.value)} />
         </div>
@@ -83,18 +82,10 @@ const Share = () => {
             <input type="file" id="file" style={{ display: "none" }} onChange={(e) => setfile(e.target.files[0])} />
             <label htmlFor="file">
               <div className="item">
-                <img src={img} alt="" />
-                <span>Add Image</span>
+                <span>Post New</span>
+                <AiOutlinePlus className="AddIcon"/>
               </div>
             </label>
-            <div className="item">
-              <img src={map} alt="" />
-              <span>Add Place</span>
-            </div>
-            <div className="item">
-              <img src={friend} alt="" />
-              <span>Tag Friends</span>
-            </div>
           </div>
           <div className="right">
             <button onClick={handleClick}>Share</button>

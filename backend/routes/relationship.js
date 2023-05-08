@@ -1,7 +1,8 @@
 const express = require('express');
-const {getRelationship,addRelationship,deleteRelationship} = require('../controllers/relationship.js');
+const {addRelationship,deleteRelationship,getFollowers,getFollowing} = require('../controllers/relationship.js');
 const router = express.Router();
 
-router.route("/").get(getRelationship).post(addRelationship).delete(deleteRelationship);
-
+router.route("/").post(addRelationship).delete(deleteRelationship);
+router.route('/followers').get(getFollowers);
+router.route('/following').get(getFollowing);
 module.exports = router;

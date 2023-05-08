@@ -3,6 +3,7 @@
 @include themify($theme){
     background-color: themed('bgsoft');
     min-height: 100vh;
+    position: relative;
 
 
     .images{
@@ -27,7 +28,7 @@
         left: 0;
         right: 0;
         margin: auto;
-        top:200px;
+        top:185px;
 
         @include mobile{
           
@@ -36,6 +37,7 @@
     }
     .profilecontainer{
        padding: 20px 70px;
+
       
        @include mobile{
         width: 89%;
@@ -46,17 +48,19 @@
    }
 
     .userinfo{
-        width: 100%;
-        height: 180px;
-        box-shadow: 0px 0px 25px -10px rgba(0,0,0,0.38);
-        border-radius: 20px;
-        background-color: themed('bg');
-        color:themed('textcolor');
-        padding:20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
+      
+      width: 100%;
+      height: 180px;
+      box-shadow: 0px 0px 25px -10px rgba(0,0,0,0.38);
+      border-radius: 20px;
+      background-color: themed('bg');
+      border:1px solid themed('border');
+      color:themed('textcolor');
+      padding:20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
 
         @include mobile{
           flex-direction: column;
@@ -65,16 +69,47 @@
           margin-top:100px ;
           margin-left: 20px;  
   }
-
+          .UserInfoContainer{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
         .left{
            flex:1;
            display: flex;
+           justify-content: center;
+           align-items: center;
            gap: 2px;
-          
+           border-right: 2px solid themed('border');
+           height: 100%;
+           
            @include Tablet{
             flex-wrap: wrap;
          }
-
+          .Followers{
+            margin-bottom: 5px;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: max-content;
+            gap:10px;
+            padding: 5px;
+            cursor: pointer;
+          
+            .FollowersHead>h3{
+              cursor: pointer;
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+            .FollowersCount>span{
+              font-size: 25px;
+              cursor: pointer;
+            }
+          }
+          .Followers:hover{
+            background-color: themed('bgsoft');
+          }
         }
         .center{
           flex:1;
@@ -82,12 +117,34 @@
           flex-direction: column;
           align-items: center;
           gap: 10px;
-          
+          border-right:2px solid themed('border');
           span{
               font-size: 25px;
               font-weight: 300;
             //  margin-right: 30px;
           }
+          .Following{
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 5px;
+          .FollowingHead>h3{
+            cursor: pointer;
+          font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+          }
+          
+          .FollowingCount>p{
+            cursor: pointer;
+          font-size: 25px;
+          }
+        }
+        .Following:hover{
+          background-color: themed('bgsoft');
+        }
 
           .info{
             display: flex;
@@ -125,10 +182,41 @@
         .right{
          flex: 1;
          display: flex;
+         flex-direction: column;
          align-items: center;
-         justify-content: flex-end;
+         justify-content:center;
          gap: 10px;
+
         }
+        .right>span{
+          font-size: 20px;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .rightMessage{
+          flex: 1;
+         display: flex;
+         width: max-content;
+         cursor: pointer;
+         align-items: center;
+         justify-content:center;
+         gap: 10px;
+         padding: 5px;
+         height: 70px;
+         margin-bottom: 5px;
+
+        }
+        .rightMessage:hover{
+          background-color: themed('bgsoft');
+        }
+        .rightMessage>span{
+          font-size: 20px;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .SendMessageIcon{
+          transform: rotate(350deg) ;
+          cursor: pointer;
+        }
+      }
     }
  }
  .userposts{
@@ -138,5 +226,6 @@
       padding: 5px 30px;
    }
  }
+ 
 }
 }

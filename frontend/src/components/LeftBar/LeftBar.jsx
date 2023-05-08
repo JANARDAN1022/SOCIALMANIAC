@@ -6,6 +6,7 @@ import {makeRequest} from '../../axios';
 import { Link, useNavigate } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ALTprofile from '../../Assets/ALTprofile.jpg';
 
 
 
@@ -16,7 +17,7 @@ const LeftBar = () => {
  
     const Navigate = useNavigate();
    const {currentuser} = useContext(AuthContext);
-
+   
    
    /*const user = JSON.parse(localStorage.getItem("user"));
 const userId = user.id;*/
@@ -41,7 +42,7 @@ const userId = user.id;*/
       <div className="menu">  
       
       <div className="user">
-      <Link to={`/profile/${userId}`}> <img style={{cursor:'pointer'}} src={`/uploads/${ data.profilepicture}`} alt="pic"/> </Link>
+      <Link to={`/profile/${userId}`}> <img style={{cursor:'pointer'}} src={ data.profilepicture? `/uploads/${ data.profilepicture}`:ALTprofile} alt='Profile'/> </Link>
       <span onClick={()=>Navigate(`/profile/${userId}`)}>Profile</span>
       </div> 
 

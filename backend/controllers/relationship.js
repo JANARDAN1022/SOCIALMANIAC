@@ -2,14 +2,22 @@ const db = require('../connect.js');
 const jwt = require('jsonwebtoken');
 
 
+exports.getFollowers=(req,res)=>{
+   const q = `SELECT followeruserId FROM relationships WHERE followeduserId = ?`
 
-exports.getRelationship=(req,res)=>{
-    const q = `SELECT followeruserId FROM relationships WHERE followeduserId = ?`
- 
-   db.query(q,[req.query.followeduserId],(err,data)=>{
-    if(err) return res.status(500).json(err);
-    return res.status(200).json(data.map(relationship=>relationship.followeruserId));
-   })
+  db.query(q,[req.query.followeduserId],(err,data)=>{
+   if(err) return res.status(500).json(err);
+   return res.status(200).json(data.map(relationship=>relationship.followeruserId));
+  })
+}
+
+exports.getFollowing=(req,res)=>{
+  const q = `SELECT followeduserId FROM relationships WHERE followeruserId = ?`
+
+  db.query(q,[req.query.followeruserId],(err,data)=>{
+   if(err) return res.status(500).json(err);
+   return res.status(200).json(data.map(relationship=>relationship.followeduserId));
+  })
 }
 
 exports.addRelationship = (req,res)=>{

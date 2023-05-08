@@ -3,6 +3,7 @@ import '../../pages/Chat/Chat.css';
 import { Link } from 'react-router-dom';
 import {getUser,getMessages} from '../../API/ChatApi';
 import { AuthContext } from '../../context/authContext';
+import ALTprofile from '../../Assets/ALTprofile.jpg';
 
 
 const Conversations = ({Data,currentuserId}) => {
@@ -50,7 +51,7 @@ const Conversations = ({Data,currentuserId}) => {
   return (
         <>
         <div className='Online'></div>
-        <Link to={`/profile/${userData?.userId}`}> <img className='PROFILEIMGLEFTCHATBARUsers' style={{cursor:'pointer'}} src={`/uploads/${ userData?.profilepicture}`} alt="pic"/> </Link>
+        <Link to={`/profile/${userData?.userId}`}> <img className='PROFILEIMGLEFTCHATBARUsers' style={{cursor:'pointer'}} src={userData?.profilepicture?`/uploads/${ userData?.profilepicture}`:ALTprofile} alt="pic"/> </Link>
         <div className='MessgaeUserInfoDetails'>
          <span>{userData?.username}</span>
          <span className='Active' style={{display:'none'}}>Active</span>

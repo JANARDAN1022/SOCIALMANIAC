@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 import CallSharpIcon from '@mui/icons-material/CallSharp';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 //import ReactTimeAgo from 'react-time-ago';
+import LastSeen from '../../LastSeen';
 import InputEmoji from "react-input-emoji";
 import AddIcon from '@mui/icons-material/Add';
 import  {AuthContext}  from '../../context/authContext';
 import { addMessages } from '../../API/ChatApi';   
- 
+import ALTprofile from '../../Assets/ALTprofile.jpg';
 
 const MessageBox = ({chat,currentuserId,setsendMessage,recieveMessage}) => {
     const [userData,setuserData]=useState(null);
@@ -76,19 +77,18 @@ function handleOnEnter(sendnewMessage) {
 
     //send messages to socket server
     const recieverUserId = chat?.members?.find((id)=>id!==currentuserId);
-    console.log(recieverUserId);
+  
     setsendMessage({...message,recieverUserId})
   }
 
   useEffect(()=>{
     if(recieveMessage!==null && recieveMessage.chatId===chat._id){
         setMessages([...messages,recieveMessage])
-        console.log('reci',recieveMessage)
-        console.log('messages',messages)
+      
 
       
     }
-  },[recieveMessage]);
+  },[recieveMessage,chat._id]);
 
   useEffect(()=>{
   scroll.current?.scrollIntoView({behavior:"smooth"})
@@ -101,7 +101,7 @@ function handleOnEnter(sendnewMessage) {
             <nav className='MessageNav'>
                 <div className='MessageHeaduserInfo'>
                 <Link to={`/profile/${userData?.userId}`}>
-                    <img className='MessageNavProfileImg' src={`/uploads/${ userData?.profilepicture}`} alt='ProfPic' />
+                    <img className='MessageNavProfileImg' src={userData?.profilepicture? `/uploads/${ userData?.profilepicture}`:ALTprofile} alt='ProfPic' />
                 </Link>
                 <h3>{userData?.username}</h3>
 
@@ -128,7 +128,7 @@ function handleOnEnter(sendnewMessage) {
            <p>{messages.text}</p>
            </div>
            <span> 
-        timeago
+        <LastSeen date={messages?.createdAt}/>
            </span>
            </div>
            </div>

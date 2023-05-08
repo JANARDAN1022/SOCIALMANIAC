@@ -5,6 +5,7 @@ import {useQuery, useMutation, useQueryClient } from 'react-query';
 import {makeRequest} from '../../axios';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import ALTprofile from '../../Assets/ALTprofile.jpg';
 
 const Comments = ({postid}) => {
   const Navigate = useNavigate();
@@ -42,7 +43,7 @@ const queryClient = useQueryClient();
     <div className='Comments'>
         <div className="write">
             
-            <img style={{cursor:'pointer'}} onClick={()=>Navigate(`/profile/${data[0].userId}`)} src={`/uploads/${currentuser.profilepicture}`} alt='pic'/>
+            <img style={{cursor:'pointer'}} onClick={()=>Navigate(`/profile/${data[0].userId}`)} src={currentuser.profilepicture?`/uploads/${currentuser.profilepicture}`:ALTprofile} alt='pic'/>
             <input type="text" value={description} onChange={(e)=>setdescription(e.target.value)} placeholder='write a comment' />
             <button onClick={handleClick}>Send</button>
         </div>

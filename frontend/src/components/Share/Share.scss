@@ -73,14 +73,23 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
-
-            img {
-              height: 20px;
-            }
+           position: relative;
 
             span {
-              font-size: 12px;
+              border:1px solid themed('border');
+              padding-top: 5px;
+              padding-bottom: 5px;
+              padding-left: 10px;
+              padding-right: 20px;
+              font-size: 20px;
               color: gray;
+            }
+            span:hover{
+              border:2px solid themed('border');
+            }
+            .AddIcon{
+              position: absolute;
+              right: 2px;
             }
           }
         }

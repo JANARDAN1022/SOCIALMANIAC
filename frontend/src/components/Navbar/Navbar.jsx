@@ -3,16 +3,14 @@ import './Navbar.scss';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
-import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import {MdOutlineCancel} from 'react-icons/md'
 import { Link,useNavigate } from 'react-router-dom';
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { AuthContext } from '../../context/authContext.js';
 import { makeRequest } from '../../axios';
 import {useQuery } from 'react-query';
+import ALTprofile from '../../Assets/ALTprofile.jpg';
 
 
 
@@ -21,6 +19,9 @@ const Navbar = () => {
   const {toggle,DarkMode}=useContext(DarkModeContext);
   const [loading,setloading]=useState(false);
   const {currentuser} = useContext(AuthContext);
+  const [searchQuery,setsearchQuery]=useState('');
+  const [ShowSearch,setShowSearch]=useState(false);
+  const [searchresult,setsearchresult]=useState(null);
 
   const userId = currentuser.id;
    const {isLoading,error,data } = useQuery(['user'],async ()=>{
@@ -28,6 +29,8 @@ const Navbar = () => {
   return res.data;
   
 });
+
+
 
 
   const handleLogout = async ()=>{
@@ -41,8 +44,25 @@ const Navbar = () => {
     setloading(false);
   }
   }
+
+  const handleSearch = async (e) => {
+    setsearchQuery(e.target.value);
+    if(e.target.value !==''||null){
+    setShowSearch(true);
+    }
+    
+    
+    try {
+    const {data:SearchedUsers} = await makeRequest.get(`/users/search?q=${searchQuery}`);
+      setsearchresult(SearchedUsers);
+     
+      // Do something with the response
+    } catch (error) {
+      console.error(error);
+    }
+  }
   
- 
+
   
   return (
     isLoading?"loading..."
@@ -56,21 +76,47 @@ const Navbar = () => {
       <HomeOutlinedIcon />
       {DarkMode?<WbSunnyOutlinedIcon style={{cursor:"pointer"}} onClick={toggle} />:
       <DarkModeOutlinedIcon style={{cursor:"pointer"}} onClick={toggle} />}
-      <GridViewOutlinedIcon />
+     
       <div className="search">
-        <SearchOutlinedIcon />
-        <input type='text' placeholder='Search...' />
+        <input type='text' placeholder='Search...' value={searchQuery} onChange={handleSearch}/>
+      <div className='SearchedUsers' style={{display:ShowSearch?'':'none'}}>
+      
+       <div className='cancelIcon' onClick={()=>setShowSearch(false)}>
+       <MdOutlineCancel size={35}/>
+      </div>
+      
+      <div className='SearchResults'>
+        {searchresult && searchresult.map((user)=>(
+       <div className='SearchResultwrapper'>
+       <div className='searchresultIMG' key={user?._id}>
+        <img onClick={()=>{
+          Navigate(`/profile/${user?.userId}`);
+          setShowSearch(false);
+          
+          }} src={user.profilepicture? `/uploads/${user?.profilepicture}`:ALTprofile} alt='ProfileImg'/>
+       </div>
+       <div className='searchresultUserName'>
+        <p onClick={()=>{
+          Navigate(`/profile/${user?.userId}`);
+          setShowSearch(false);
+    
+          }} >{user?.username}</p>
+       </div>
+       </div>
+
+              ))}
+      </div>
+      
+      </div>
       </div>
      
       </div>
   
      <div className="right">
         <button onClick={handleLogout} className='LogoutNavbarbtn' disabled={loading}>Logout</button>
-     <PersonOutlineOutlinedIcon onClick={()=>Navigate(`/Profile/${currentuser.id}`)} style={{cursor:'pointer'}}/>
-     <SendRoundedIcon className='MESSAGEICON' onClick={()=>Navigate(`/chat`)}/>
-     <NotificationsOutlinedIcon style={{cursor:'pointer'}} />
+      <SendRoundedIcon className='MESSAGEICON' onClick={()=>Navigate(`/chat`)}/>
      <div className="user">
-      <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
+      <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={data.profilepicture? `/uploads/${ data.profilepicture}`:ALTprofile}  alt='img'/>
       <span  onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}}>{data.name}</span>
      </div>
      </div>

@@ -18,7 +18,7 @@
     .left{
      display: flex;
      align-items: center;
-     gap:30px;
+     gap:40px;
 
      @include mobile{
       gap: 15px;
@@ -35,10 +35,13 @@
      }
 
      .search{
+      position: relative;
         display: flex;
         align-items: center;
         gap:10px;
         border: 1px solid themed("border");
+        border-radius: 10px;
+        padding: 5px;
 
         @include mobile{
          
@@ -47,7 +50,9 @@
   @include Tablet{
     width: 28px;
  }
-       
+       .SEARCHNAVBARICON{
+        cursor: pointer;
+       }
         input{
     background-color:transparent;
     color:themed("textcolor");
@@ -60,6 +65,83 @@
    }
        
         }
+        .SearchedUsers{
+          position: absolute;
+          left: 0;
+          top:28px;
+          z-index: 1000;
+          width: 33vmax;
+          height: max-content;
+          background-color: themed("bg");
+          padding: 20px;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          border:1px solid themed('border');
+          
+          .cancelIcon{
+            padding: 5px;
+            cursor: pointer;
+            color:white;
+            width: max-content;
+            position: absolute;
+            top:0;
+            right: 2px;
+          }
+          .cancelIcon:hover{
+            color:rgba(255,255,255,0.6);
+            transition: all 300ms ease;
+          }
+          .SearchResults{
+            display: flex;
+            flex-direction: column;
+            height:500px;
+            gap: 20px;
+            overflow: scroll;
+            overflow-x: hidden;
+            
+            
+            .SearchResultwrapper{
+              
+              padding: 10px;
+                display: flex;
+                align-items: center;
+                width: 90%;
+                gap:10px;
+          .searchresultIMG>img{
+            width: 37px;
+            height:37px;
+            object-fit: cover;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+          .searchresultUserName{
+            font-size: 20px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+          }
+        }
+        .SearchResultwrapper:hover{
+          cursor: pointer;
+          background-color: themed('bgsoft');
+        }
+        }
+        .SearchResults::-webkit-scrollbar {
+          width: 10px;
+          
+        }
+        
+        .SearchResults::-webkit-scrollbar-thumb {
+          background-color:themed('bg');
+        }
+        
+        .SearchResults::-webkit-scrollbar-thumb:hover {
+          background-color: themed('bgsoft');
+        }
+        
+        .SearchResults::-webkit-scrollbar-track {
+          background-color: themed('bg');
+        }
+        }
      }
      
      }
@@ -68,13 +150,15 @@
     .right{
         display: flex;
         align-items: center;
-        gap:20px;
+        gap:30px;
+        padding: 15px;
+        margin-right: 20px;
 
         @include mobile{
           gap: 8px;
        }
        .MESSAGEICON{
-         transform: rotate(350deg) translate(0px, 0px);
+         transform: rotate(345deg) translate(0px, 0px);
          cursor: pointer;
        }
        
@@ -83,6 +167,7 @@
       background-color: themed('bg');
       border: none;
       cursor: pointer;
+      font-size: 18px;
      
        }
       .user{
@@ -96,10 +181,14 @@
        }
 
         img{
-           width: 30px;
-           height:30px;
+           width: 35px;
+           height:35px;
            object-fit: cover;
            border-radius: 50%;
+        }
+        span{
+          font-size: 20px;
+
         }
         
 

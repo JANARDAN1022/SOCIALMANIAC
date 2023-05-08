@@ -38,7 +38,7 @@ const Chat = () => {
       getchats();
     },[id]);
     
-
+console.log(OnlineUsers)
   
     useEffect(()=>{
      socket.current = io('http://localhost:8800');
@@ -145,7 +145,19 @@ const Chat = () => {
             <div className='NoChatsMessage'>
            <h2>Your Messages</h2>
            <span>Send private photos and messages to a friend or group.</span>
+           <button>Send Message</button>
            </div>
+          {/* <div className='SendMessageTo'>
+          
+           <div className='SendMessageToHead'>
+            
+           </div>
+           
+           <div className='SendMessageToSuggested'>
+            
+           </div>
+
+          </div>*/}
           </div>
           :
        <MessageBox chat={currentChat} currentuserId={id} key={userId} setsendMessage={setSendMessage} recieveMessage={recieveMessage}/>
