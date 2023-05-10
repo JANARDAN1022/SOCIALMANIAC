@@ -63,12 +63,13 @@ const App = () => {
           <Route path='/Profile/:id' element={<Profile />} />
           </Route>
           </Routes>
-      </QueryClientProvider>
-      <Routes>
-       
+          <Routes>
       <Route path='/chat' element={<Chat />} />
-      
       </Routes>
+          </QueryClientProvider>  
+      
+      
+      
     </Router>
   );
 }

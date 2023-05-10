@@ -15,7 +15,7 @@ const Conversations = ({Data,currentuserId}) => {
 
  
    useEffect(()=>{
-     const RecieverUserId = Data.members.find((id)=>id!==currentuserId)
+     const RecieverUserId = Data?.members?.find((id)=>id!==currentuserId)
     
      const getUserData = async()=>{
         try{
@@ -44,8 +44,8 @@ const Conversations = ({Data,currentuserId}) => {
    },[Data]);
 
 
-    const lastmessage =  messages?.[messages.length-1]?.text.slice(0,26);
-    const lastmessageUser = messages?.[messages.length-1]?.senderId===currentuser.mongoDbId?'you:':userData?.username;
+    const lastmessage =  messages?.[messages.length-1]?.text.slice(0,26) || '';
+    const lastmessageUser = messages?.[messages.length-1]?.senderId===currentuser.mongoDbId?'you:':userData?.username || '';
    
 
   return (

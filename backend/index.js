@@ -58,13 +58,13 @@ app.post('/api/upload', upload.single("file"), (req,res)=>{
 require('./MongoDb.js');
 
 //Routes
-app.use('/api/users',userroutes);
-app.use('/api/posts',Postroutes);
-app.use('/api/likes',likesroutes);
-app.use('/api/comments',commentsroutes);
-app.use('/api/auth',authroutes);
-app.use('/api/relationships',relationshiproutes);
-app.use('/api/stories',storiesroutes);
+app.use('/api/users/',userroutes);
+app.use('/api/posts/',Postroutes);
+app.use('/api/likes/',likesroutes);
+app.use('/api/comments/',commentsroutes);
+app.use('/api/auth/',authroutes);
+app.use('/api/relationships/',relationshiproutes);
+app.use('/api/stories/',storiesroutes);
 app.use('/api/chat/',chatroutes);
 app.use('/api/messages/',MessageRoutes);
 

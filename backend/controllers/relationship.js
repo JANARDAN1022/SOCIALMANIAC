@@ -2,6 +2,9 @@ const db = require('../connect.js');
 const jwt = require('jsonwebtoken');
 
 
+
+
+//Get Followers of user
 exports.getFollowers=(req,res)=>{
    const q = `SELECT followeruserId FROM relationships WHERE followeduserId = ?`
 
@@ -11,6 +14,7 @@ exports.getFollowers=(req,res)=>{
   })
 }
 
+//Get Following users
 exports.getFollowing=(req,res)=>{
   const q = `SELECT followeduserId FROM relationships WHERE followeruserId = ?`
 
@@ -20,6 +24,7 @@ exports.getFollowing=(req,res)=>{
   })
 }
 
+//Add To Following
 exports.addRelationship = (req,res)=>{
     const token = req.cookies.accessToken;
     if(!token) return res.status(401).json('Login Required');
@@ -44,7 +49,7 @@ exports.addRelationship = (req,res)=>{
  }
 
 
-
+//Remove From Following
  exports.deleteRelationship = (req,res)=>{
     const token = req.cookies.accessToken;
     if(!token) return res.status(401).json('Login Required');

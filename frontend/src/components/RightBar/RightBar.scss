@@ -27,82 +27,86 @@
     background-color: themed("bgsoft");
         
     .container{
-        .onlinefriends{
-        margin-top: 10px;
-        }
-        .LatestAcitivites{
-         margin-top: 10px;
-        }
+        padding: 10px;
+        height: 100%;
         .SuggestionsForYou{
             margin-bottom:10px;
+            height: 500px;
+            width: 400px;
+
+            .SuggestionHead{
+                margin-left: 30%;
+                font-size: 20px;
+            }
+
         }
         .item{
             padding: 10px;
             box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.09);
             background-color: themed("bg");
         
+        
 
-           p{
-            color:themed("textcolorsoft");
-           }
+           
             span{
             color:themed("textcolor");
             }
             .user{
                 display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin: 20px 0px;
-
-                .userinfo{
+                flex-direction: column;
+                height: 96.8%;
+                 overflow: scroll;
+                 overflow-x: hidden;
+.userinfoContainer{
+                    
+                     display: flex;
+                     gap:20px;
+                     padding: 20px;
+                          
+                     .userinfo{
+                    cursor: pointer;
+                  margin-left: 50px;
                     display: flex;
                     align-items: center;
                     gap: 20px;
                     position: relative;
-
+                    width: 65%;
+                    height: 50px;
+                    
+                      padding: 10px;
                     img{
-                width: 30px;
-                height: 30px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
                 object-fit: cover;      
-                    }
-                    .online{
-                        width: 12px;
-                        height: 12px;
-                        border-radius: 50%;
-                        background-color: limegreen;
-                        position: absolute;
-                        top:0;
-                        left:29px;
-                    }
-
-                    span{
-                        font-weight:500; 
-                        color: themed("textcolor");
-                    }
+                   }
+                
                 }
-                .buttons{
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-
-                    button{
-                        border: none;
-                        padding: 5px;
-                        color:white;
-                        cursor: pointer;
-
-                    &:first-child{
-                        background-color: #5271ff;
-                    }
-                    &:last-child{
-                        background-color: #f0544f;
-                    }
-                    }
-                    
+                .userinfo:hover{
+                    background-color: themed('bgsoft');
                 }
-            
+
+                
+                
+            }
         }
+        .user::-webkit-scrollbar {
+            width: 15px;
+            
+          }
+          
+          .user::-webkit-scrollbar-thumb {
+            background-color:themed('bg');
+            border-radius: 5px;
+          }
+          
+          .user::-webkit-scrollbar-thumb:hover {
+            background-color: themed('bgsoft');
+          }
+          
+          .user::-webkit-scrollbar-track {
+            background-color: themed('bg');
+          }
      }
     }
     

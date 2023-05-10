@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/authContext.js';
 import { makeRequest } from '../../axios';
 import {useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-
+import ALTprofile from '../../Assets/ALTprofile.jpg';
 
 const RightBar = () => {
   const Navigate = useNavigate();
@@ -12,11 +12,14 @@ const RightBar = () => {
   const {currentuser} = useContext(AuthContext);
 
   const userId = currentuser.id;
-   const {isLoading,error,data } = useQuery(['user'],async ()=>{
-    const res = await makeRequest.get(`/users/find/${userId}`);
+ 
+
+const {isLoading,error,data:SuggestedData}= useQuery(['Suggested',userId],async ()=>{
+  const res = await makeRequest.get(`/users/Suggested/${userId}`);
   return res.data;
-  
 });
+
+console.log(SuggestedData);
 
 
 /*const {data: RelationshipData } = useQuery(['relationship'],async ()=>{
@@ -30,149 +33,24 @@ return res.data;
     :<div className="rightbarwrapper">
     <div className='Rightbar'>
       <div className="container">
-        <div className="item SuggestionsForYou<">
-          <span>Suggestions For You</span>
+        <div className="item SuggestionsForYou">
+          <span className='SuggestionHead'>Suggestions For You</span>
           <div className="user">
 
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
+            {SuggestedData && SuggestedData.map((Suggested)=>(
+              <div className='userinfoContainer'>
+            <div className="userinfo" onClick={()=>Navigate(`/profile/${Suggested?.id}`)}>
+               <img onClick={()=>Navigate(`/profile/${Suggested?.id}`)} style={{cursor:'pointer'}} 
+               src={Suggested.profilepicture?`/uploads/${Suggested.profilepicture}`:ALTprofile} alt='pic'/>
      
-              <span>John Doe</span>
-            </div>
-
-            <div className="buttons">
-            <button>Follow</button>
-            <button>Dismiss</button>
+              <span>{Suggested?.username}</span>
             </div>
            </div>
-            <div className="user">
+             ))}
+           </div> 
             
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <span>John Doe</span>
-            </div>
-
-            <div className="buttons">
-            <button>Follow</button>
-            <button>Dismiss</button>
-            </div>
-
-          </div>
         </div>
-        <div className="item LatestAcitivites">
-          <span>Latest Acitivites</span>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <span>John Doe</span> 
-              <p>
-              Changed their cover Picture
-             </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <span>John Doe</span>
-              <p>Changed their cover Picture</p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <span>John Doe</span>
-              <p> Changed their cover Picture</p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <span>John Doe</span>
-              <p> Changed their cover Picture</p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-
-        </div>
-        <div className="item onlinefriends">
-          <span>Online Friends</span>
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <div className='online' />
-              <span>John Doe</span>
-            </div>
-          </div>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <div className='online' />
-              <span>John Doe</span>
-            </div>
-          </div>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <div className='online' />
-              <span>John Doe</span>
-            </div>
-          </div>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <div className='online' />
-              <span>John Doe</span>
-            </div>
-          </div>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <div className='online' />
-              <span>John Doe</span>
-            </div>
-          </div>
-
-          <div className="user">
-            
-            <div className="userinfo">
-               <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} style={{cursor:'pointer'}} src={`/uploads/${data.profilepicture}`} alt='pic'/>
-     
-              <div className='online' />
-              <span>John Doe</span>
-            </div>
-          </div>
-
-        </div>
+        
       </div>
     </div>
     </div>

@@ -2,6 +2,7 @@
     display: flex;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 
 .LeftBARChat{
@@ -260,4 +261,68 @@
 .RightSideChatContent{
     display: flex;
     flex-direction: column;
+}
+.SendMessageTo{
+    display: flex;
+    flex-direction: column;
+    width:380px;
+    position: absolute;
+    left: 35%;
+    background-color: lightgray;
+    height: 450px;
+    border-radius: 10px;
+}
+.CancelSendMessageTo{
+position: absolute;
+left:10px;
+top: 10px;
+cursor: pointer;
+}
+.SendMessageToHead{
+    border-top:2px solid rgba(0,0,0,0.3);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom:2px solid rgba(0,0,0,0.3);
+    height:70px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+.SendMessageToHead>p{
+    color: orange;
+    font-size: 22px;
+}
+
+.SendMessageUserInfo{
+    width: 350px;
+    padding: 20px;
+    display: flex;
+    gap: 10px
+}
+.SendMessagecontainer{
+    overflow: scroll;
+    overflow-x: hidden;
+    height:100%;
+}
+
+.SendUser{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+}
+.SendUser:hover{
+    background-color:gray;
+}
+.SendUser>img{
+    height:35px;
+    width:35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.SendUser>p{
+    font-size: 20px;
 }

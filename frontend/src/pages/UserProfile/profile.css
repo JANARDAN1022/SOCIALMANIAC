@@ -43,6 +43,7 @@
  
      .FollowInfoCardHead>h3{
         font-size: 16px;
+        color: white;
       }
       .FollowinfoCancelIcon{
         position: absolute;

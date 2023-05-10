@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import './Navbar.scss';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
@@ -73,7 +72,6 @@ const Navbar = () => {
      <Link to='/' style={{textDecoration:'none'}}>
       <span>SOCIALMANIAC</span>
       </Link>
-      <HomeOutlinedIcon />
       {DarkMode?<WbSunnyOutlinedIcon style={{cursor:"pointer"}} onClick={toggle} />:
       <DarkModeOutlinedIcon style={{cursor:"pointer"}} onClick={toggle} />}
      

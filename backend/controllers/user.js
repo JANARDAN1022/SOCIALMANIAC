@@ -6,7 +6,7 @@ const MongoUser = require('../Model/MongoUser.js');
 
 
 
-
+//get users followed
 exports.getfollowingUsers = async(req,res)=>{
 
   try {
@@ -25,6 +25,9 @@ exports.getfollowingUsers = async(req,res)=>{
   }
 }
 
+
+
+//get followed by users
 exports.getfollowersUsers = async(req,res)=>{
 
   try {
@@ -157,3 +160,34 @@ exports.Updateuser = (req, res) => {
     });
   };
   
+// get all users except those who the current user is following
+exports.getUnfollowedUsers = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const q = `
+      SELECT * 
+      FROM users 
+      WHERE id != ? 
+        AND id NOT IN (
+          SELECT followeduserId 
+          FROM relationships 
+          WHERE followeruserId = ?
+        )
+        AND id NOT IN (
+          SELECT followeruserId 
+          FROM relationships 
+          WHERE followeduserId = ?
+        )
+        ORDER BY RAND()
+    `;
+  
+    db.query(q, [userId, userId, userId], (err, data) => {
+      if (err) throw err;
+      return res.status(200).json(data);
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+  
+};

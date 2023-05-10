@@ -83,7 +83,8 @@ function handleOnEnter(sendnewMessage) {
 
   useEffect(()=>{
     if(recieveMessage!==null && recieveMessage.chatId===chat._id){
-        setMessages([...messages,recieveMessage])
+        //setMessages([...messages,recieveMessage])
+        setMessages(prevMessages => [...prevMessages, recieveMessage]);
       
 
       
@@ -123,7 +124,7 @@ function handleOnEnter(sendnewMessage) {
            <div className='MessageTextinfo'>
             <div className='TEXTWITHIMG'>
             <Link to={`/profile/${userData?.userId}`}>
-                    <img className='MessageNavTEXTImg' src={`/uploads/${messages.senderId!==currentuserId? userData?.profilepicture:currentuser?.profilepicture}`} alt='ProfPic' />
+                    <img className='MessageNavTEXTImg' src={userData?.profilepicture?`/uploads/${messages.senderId!==currentuserId?userData?.profilepicture:currentuser?.profilepicture}`:ALTprofile} alt='ProfPic' />
                 </Link>
            <p>{messages.text}</p>
            </div>

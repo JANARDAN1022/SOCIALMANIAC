@@ -24,7 +24,7 @@ exports.sendMessage = async(req, res) => {
       });
       const result = await newChat.save();
       // Return new chat id
-      res.status(200).json(result._id);
+      res.status(200).json(result);
     }
   } catch (error) {
     res.status(500).json(error);
