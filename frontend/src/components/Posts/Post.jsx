@@ -5,6 +5,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import { Link } from 'react-router-dom'
 import Comments from '../Comments/Comments';
 import moment from 'moment';
@@ -68,7 +69,11 @@ const Deletemutation = useMutation((postId) => {
 })
 
 const handleDelete = ()=>{
+   if(post?.userId===currentuser?.id){
 Deletemutation.mutate(post.id)
+   }else{
+    setshowMore(false);
+   }
 }
 
 
@@ -78,24 +83,33 @@ Deletemutation.mutate(post.id)
         <div className="container">
         <div className="user">
             <div className="userinfo">
-          <Link to={`/profile/${post.userId}`}><img src={post.profilepicture? `/uploads/${post.profilepicture}`:ALTprofile} alt='' /> </Link>
+          <Link to={`/profile/${post?.userId}`}><img src={post.profilepicture? `/uploads/${post?.profilepicture}`:ALTprofile} alt='' /> </Link>
 
            <div className="details">
-            <Link to={`/profile/${post.userId}`} style={{textDecoration:'none', color:'inherit'}}>
-                <span className='name'>{post.name}</span>
+            <Link to={`/profile/${post?.userId}`} style={{textDecoration:'none', color:'inherit'}}>
+                <span className='name'>{post?.name}</span>
             </Link>
-            <span className='date'>{moment(post.createdat).fromNow()}</span>
+            <span className='date'>{moment(post?.createdat).fromNow()}</span>
            </div>
             </div>
-            <MoreHorizOutlinedIcon onClick={()=>setshowMore(true)} style={{cursor:'pointer'}}/>
-            {showMore && <button onClick={handleDelete}>DELETE</button>}
+            <div className='PostSettings' onClick={()=>setshowMore(!showMore)}>
+            <MoreHorizOutlinedIcon  onClick={()=>setshowMore(!showMore)} style={{cursor:'pointer',display: post?.userId===currentuser?.id && !showMore?'':'none'}}/>
+           <div className='SettingsContent' style={{display:showMore?'':'none'}}>
+            <CloseIcon  className='CloseSettingsIcon' onClick={()=>setshowMore(false)} style={{cursor:'pointer'}}/>
+            <div className='SettingsType'>
+            <button className='DeletePost' onClick={handleDelete}>Delete</button>
+            <button className='UpdatePost'>Update</button>
+          </div>
+          </div>
+          </div>
         </div>
 
         <div className="content">
-            {post.img&& <img src={`/uploads/${post.img}`} alt='' />}
+            {post.img&& <img src={`/uploads/${post?.img}`} alt='' />}
             
-            <p>{post.description}</p>
-        </div>
+            <p className='PostDescription' style={{display:post?.description===null||post?.description===''?'none':''}}>{post?.name}: {post?.description}</p>
+            
+            </div>
         <div className="info">
             <div className="item">
                 {isLoading?"":error?"":
@@ -114,7 +128,7 @@ Deletemutation.mutate(post.id)
             </div>
 
         </div>
-        {showComment && <Comments postid={post.id}/>}
+        {showComment && <Comments postid={post?.id}/>}
         </div>
     </div>
   )

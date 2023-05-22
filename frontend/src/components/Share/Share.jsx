@@ -68,7 +68,7 @@ const Share = () => {
         <div className="top">
           <div className="left">
             {isLoading?"loading":error?"try later":
-          <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} src={userdata.profilepicture? `/uploads/${userdata.profilepicture}`:ALTprofile} style={{cursor:"pointer"}} alt="pic"/>
+          <img onClick={()=>Navigate(`/profile/${currentuser.id}`)} src={userdata?.profilepicture? `/uploads/${userdata?.profilepicture}`:ALTprofile} style={{cursor:"pointer"}} alt="pic"/>
             }
           <input type="text" value={description} placeholder={`What's on your mind ${currentuser.name}?`} onChange={(e) => setdescription(e.target.value)} />
         </div>

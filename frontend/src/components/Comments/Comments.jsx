@@ -7,6 +7,7 @@ import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import ALTprofile from '../../Assets/ALTprofile.jpg';
 
+
 const Comments = ({postid}) => {
   const Navigate = useNavigate();
    const {currentuser} = useContext(AuthContext);
@@ -50,7 +51,7 @@ const queryClient = useQueryClient();
         {isLoading?"loading comments please wait":error?"Something went wrong try later":
         data && data.length > 0 && data.map((comments)=>(
             <div className="comment" key={comments.id}>
-                <img onClick={()=>Navigate(`/profile/${comments.userId}`)} style={{cursor:'pointer'}} src={`/uploads/${comments.profilepicture}`} alt='pic'/>
+                <img onClick={()=>Navigate(`/profile/${comments.userId}`)} style={{cursor:'pointer'}} src={comments?.profilepicture?`/uploads/${comments?.profilepicture}`:ALTprofile} alt='pic'/>
 
              <div className="info">
                 <span>{comments.name}</span>

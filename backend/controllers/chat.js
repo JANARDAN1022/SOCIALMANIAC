@@ -68,4 +68,17 @@ exports.getConversation = async(req, res) => {
 };
 
 
+exports.DeleteConversation = async(req,res)=>{
+  try{
+    await ChatModel.deleteOne({
+      _id: req.params.chatId,
+      members: { $in: [req.params.userId] }
+    });
+    res.status(200).json('Conversation Deleted');
+  }catch(error){
+    res.status(500).json(error);
+  }
+}
+
+
   

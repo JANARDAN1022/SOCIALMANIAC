@@ -38,7 +38,7 @@ return res.data;
           <div className="user">
 
             {SuggestedData && SuggestedData.map((Suggested)=>(
-              <div className='userinfoContainer'>
+              <div className='userinfoContainer' key={Suggested?.id}>
             <div className="userinfo" onClick={()=>Navigate(`/profile/${Suggested?.id}`)}>
                <img onClick={()=>Navigate(`/profile/${Suggested?.id}`)} style={{cursor:'pointer'}} 
                src={Suggested.profilepicture?`/uploads/${Suggested.profilepicture}`:ALTprofile} alt='pic'/>

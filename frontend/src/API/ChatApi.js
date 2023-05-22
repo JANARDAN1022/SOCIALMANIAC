@@ -7,3 +7,5 @@ export const getUser = (id)=>makeRequest.get(`/users/${id}`);
 export const getMessages = (id)=>makeRequest.get(`/messages/${id}`);
 
 export const addMessages = (data)=>makeRequest.post('/messages/',data);
+
+export const DeleteChats = (chatId,userId)=>makeRequest.delete(`/chat/Delete/${chatId}/${userId}`);

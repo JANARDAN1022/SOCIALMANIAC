@@ -25,6 +25,7 @@ const MessageBox = ({chat,currentuserId,setsendMessage,recieveMessage}) => {
 
    useEffect(()=>{
     const RecieverUserId = chat?.members?.find((id)=>id!==currentuserId);
+    console.log('RecieverUserId', RecieverUserId);
 
     const getUserData = async()=>{
         try{
@@ -34,14 +35,18 @@ const MessageBox = ({chat,currentuserId,setsendMessage,recieveMessage}) => {
         console.log(err);
         }
      }
-    if(chat!==null) getUserData();
+    if(chat!==null) {
+        getUserData();
+    }
 },[chat,currentuserId]);
+
+
 
 
 useEffect(()=>{
     const fetchMessages = async ()=>{
        try {
-           const {data} = await getMessages(chat._id)
+           const {data} = await getMessages(chat?._id)
            setMessages(data)
        } catch (error) {
            console.log(error);
@@ -95,6 +100,11 @@ function handleOnEnter(sendnewMessage) {
   scroll.current?.scrollIntoView({behavior:"smooth"})
   },[messages])
 
+ 
+  const currentUserImg = `${currentuser?.profilepicture!==null&&currentuser?.profilepicture!==''? `/uploads/${currentuser?.profilepicture}`:ALTprofile}`;
+  const userDataImg = `${userData?.profilepicture!==null&&userData?.profilepicture!==''?`/uploads/${userData?.profilepicture}`: ALTprofile  }`;
+
+
   return (
     <div className='RightSideChatContent'>
         
@@ -102,7 +112,7 @@ function handleOnEnter(sendnewMessage) {
             <nav className='MessageNav'>
                 <div className='MessageHeaduserInfo'>
                 <Link to={`/profile/${userData?.userId}`}>
-                    <img className='MessageNavProfileImg' src={userData?.profilepicture? `/uploads/${ userData?.profilepicture}`:ALTprofile} alt='ProfPic' />
+                    <img className='MessageNavProfileImg' src={userDataImg} alt='ProfPic' />
                 </Link>
                 <h3>{userData?.username}</h3>
 
@@ -123,13 +133,17 @@ function handleOnEnter(sendnewMessage) {
            
            <div className='MessageTextinfo'>
             <div className='TEXTWITHIMG'>
-            <Link to={`/profile/${userData?.userId}`}>
-                    <img className='MessageNavTEXTImg' src={userData?.profilepicture?`/uploads/${messages.senderId!==currentuserId?userData?.profilepicture:currentuser?.profilepicture}`:ALTprofile} alt='ProfPic' />
+            <Link to={`/profile/${messages.senderId!==currentuserId? userData?.userId : currentuser?.userId}`}>
+                    <img className='MessageNavTEXTImg' src={messages.senderId!==currentuserId?userDataImg:currentUserImg}
+                         
+                         
+                         
+                         alt='ProfPic' />
                 </Link>
            <p>{messages.text}</p>
            </div>
            <span> 
-        <LastSeen date={messages?.createdAt}/>
+        {<LastSeen date={messages?.createdAt}/>}
            </span>
            </div>
            </div>

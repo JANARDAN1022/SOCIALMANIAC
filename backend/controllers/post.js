@@ -31,9 +31,18 @@ exports.getPosts = (req,res)=>{
 
 
 
-   const q = userId?`SELECT p.*, u.id AS userId, name, profilepicture FROM posts AS p JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ?`: `SELECT p.*, u.id AS userId, name, profilepicture FROM posts AS p JOIN users AS u ON (u.id = p.userId)
-   LEFT JOIN relationships AS r ON (p.userId = r.followeduserId ) WHERE r.followeruserId=? OR p.userId=?
-   ORDER BY p.createdat DESC`;
+   const q = userId?`SELECT p.*, u.id AS userId, name, profilepicture FROM posts AS p JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ?`
+   :
+    `SELECT p.*, u.id AS userId, u.name, u.profilepicture
+FROM posts AS p
+JOIN users AS u ON u.id = p.userId
+WHERE p.userId IN (
+    SELECT r.followeduserId
+    FROM relationships AS r
+    WHERE r.followeruserId = ?
+) OR p.userId = ?
+ORDER BY p.createdat DESC`;
+
    
    
    db.query(q,[userId? userId:userInfo.id,userInfo.id],(err,data)=>{

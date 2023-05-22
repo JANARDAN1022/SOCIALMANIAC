@@ -1,7 +1,7 @@
 import React, { useContext ,useEffect, useRef, useState} from 'react';
 import './Chat.css';
 import { AuthContext } from '../../context/authContext';
-import { userChats } from '../../API/ChatApi';
+import { userChats,DeleteChats } from '../../API/ChatApi';
 import { Link ,useNavigate} from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -13,6 +13,9 @@ import {MdOutlineCancel} from 'react-icons/md';
 import {useQuery,useMutation} from 'react-query';
 import {makeRequest} from '../../axios';
 import ALTprofile from '../../Assets/ALTprofile.jpg';
+import { ChatContext } from '../../context/ChatContext';
+import {RxCross2} from 'react-icons/rx';
+//import {AiOutlineMore} from 'react-icons/ai';
 
 
 const Chat = () => {
@@ -20,21 +23,27 @@ const Chat = () => {
     const Navigate = useNavigate();
     const socket = useRef();
     const {currentuser} = useContext(AuthContext);
-    const [chats,setchats]=useState([]);
-    const [currentChat,setcurrentChat]=useState(null);
+    //const [chats,setchats]=useState([]);
+    const {chats,setchats,currentChat,setcurrentChat} = useContext(ChatContext)
+    //const [currentChat,setcurrentChat]=useState(null);
     const [OnlineUsers,setOnlineUsers]=useState([]);
     const [sendMessage,setSendMessage]=useState(null);
     const [recieveMessage,setrecieveMessage]=useState(null);
     const [ShowSend,setShowSend]=useState(false);
-    const id = currentuser.mongoDbId;
-    const userId=currentuser.id
+    const [ChatId,setChatId]=useState(null);
+    const [ShowDeleteConfirm,setShowDeleteConfirm]=useState(false);
+    const id = currentuser?.mongoDbId;
+    const userId=currentuser?.id;
+
+
+   
 
 
     useEffect(() => {
       const fetchChats = async () => {
         try {
           const { data } = await userChats(id);
-          setchats(data);
+          setchats(data.reverse());
         } catch (error) {
           console.log(error);
         }
@@ -42,10 +51,11 @@ const Chat = () => {
       if(chats.length===0){
     fetchChats();
       }
+      // eslint-disable-next-line
     }, [id,chats]);
     
-
-  console.log(chats);
+console.log('CurrentChat',currentChat)
+ // console.log(chats);
     useEffect(()=>{
      socket.current = io('http://localhost:8800');
      socket.current.emit("new-user-add",currentuser.mongoDbId)
@@ -54,7 +64,7 @@ const Chat = () => {
     
      })
     },[currentuser])
-    console.log(OnlineUsers);
+    console.log('onlineusers:',OnlineUsers);
  //send message to socket server
  useEffect(()=>{
   if(sendMessage !==null){
@@ -83,7 +93,7 @@ const Chat = () => {
 
   const createChatMutation = useMutation(async ({ senderId, receiverId }) => {
     const res = await makeRequest.post('/chat', { senderId, receiverId });
-    console.log('PostData',res.data)
+   // console.log('PostData',res.data)
     return res.data;
   }, {
     onSuccess: (data, { senderId, receiverId }) => {
@@ -101,13 +111,13 @@ const Chat = () => {
         setcurrentChat(updatedChats[chatIndex]);
       } else {
         // if the chat doesn't exist, add it to the chats array and set it as the current chat
-        setchats(prevChats => [...prevChats, data]);
+        setchats(prevChats => [data,...prevChats]);
         setcurrentChat(data);
       }
     },
   });
   
-  
+ 
 
 const handleSuggestedUserClick = (receiverId) => {
   const fetchChats = async () => {
@@ -125,9 +135,21 @@ fetchChats();
   createChatMutation.mutate({ senderId: currentuser?.mongoDbId, receiverId });
 };
 
+const HandleDeleteConv = async(ChatId)=>{
+ try{
+   await DeleteChats(ChatId,id);
+   setchats((prevChats) => prevChats.filter((chat) => chat._id !== ChatId));
+   setcurrentChat(null);
+   setShowDeleteConfirm(false);
+ }catch(error){
+  console.log(error);
+ }
+}
 
 
-    
+
+    console.log('Currentchats:',currentChat);
+    console.log('chats',chats)
   
   return (
     <div className='ChatMainDiv'>
@@ -170,7 +192,7 @@ fetchChats();
         <div className='LeftChatContainer'>
       
        <div className='LeftMessageHead'>
-       <nav>{currentuser.username}</nav>
+       <nav>{currentuser?.username}</nav>
        </div>
        
        <div className='MessagesUsersLeft'>
@@ -181,9 +203,25 @@ fetchChats();
 
         <div className='MessagesLeftUsersInfo'>
           {chats && chats.map((chat)=>(
-        <div className='MessageUserInfoDiv' onClick={()=>setcurrentChat(chat)} key={chat._id} >
+        <div className='MessageUserInfoDiv' onClick={()=>{
+        if(!ShowDeleteConfirm){  
+          setcurrentChat(chat)
+        }
+        }} key={chat._id} style={{
+          backgroundColor:currentChat?.members?.[1]===chat?.members?.[1]?'rgba(0,0,0,0.1)':''
+          }}>
         <Conversations Data={chat} currentuserId={id}  />
+      
+        <div className='ShowDelete'  style={{display:ShowDeleteConfirm?'none':''}}>
+          <button  className='DeleteButton' onClick={()=>{
+            setShowDeleteConfirm(true);
+            setChatId(chat?._id)
+            }}>Delete</button>
         </div>
+        </div>
+         
+         
+          
           )
           )}
          
@@ -245,6 +283,16 @@ fetchChats();
       </div>
       
       
+      </div>
+
+      <div className='ConfirmDelete' style={{display:ShowDeleteConfirm?'':'none'}}>
+      <RxCross2 size={20} className='CrossIcon' onClick={()=>setShowDeleteConfirm(false)}/>
+      <span>Delete This Conversation?</span>
+      
+      <div className='ConfirmDeleteButtons'>
+      <button onClick={()=>setShowDeleteConfirm(false)}>Cancel</button>
+      <button onClick={()=>HandleDeleteConv(ChatId)}>Delete</button>
+      </div>
       </div>
 
       </div>

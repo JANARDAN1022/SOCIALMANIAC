@@ -12,12 +12,14 @@ import DefaultCover from '../../Assets/DefaultCover.png';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import {MdOutlineCancel} from 'react-icons/md'
 import { useNavigate } from 'react-router-dom';
+import { ChatContext } from '../../context/ChatContext';
 
 
 
 
 const Profile = () => {
   const Navigate = useNavigate();
+  const {chats,setchats,setcurrentChat} = useContext(ChatContext);
   const queryClient = useQueryClient();
   const [openUpdate,setopenUpdate] = useState(false);
   const [ShowFollowing,setShowFollowing]=useState(false);
@@ -31,6 +33,38 @@ const Profile = () => {
  setId(userId);
   },[userId]);
 
+
+  const createChatMutation = useMutation(async ({ senderId, receiverId }) => {
+    const res = await makeRequest.post('/chat', { senderId, receiverId });
+   // console.log('PostData',res.data)
+    return res.data;
+  }, {
+    onSuccess: (data, { senderId, receiverId }) => {
+      Navigate('/chat');
+      const chatIndex = chats.findIndex(chat => chat.members.includes(receiverId));
+      let updatedChats;
+      // if the chat exists, update the lastMessage field and set it as the current chat
+      if (chatIndex !== -1) {
+        updatedChats = [...chats];
+        updatedChats[chatIndex] = {
+          ...updatedChats[chatIndex],
+          lastMessage: data,
+        };
+        setchats(updatedChats);
+        setcurrentChat(updatedChats[chatIndex]);
+      } else {
+        // if the chat doesn't exist, add it to the chats array and set it as the current chat
+        setchats(prevChats => [data,...prevChats]);
+        setcurrentChat(data);
+      }
+    },
+  });
+
+   
+
+
+
+  
 
    const {isLoading,error,data } = useQuery(['user',userId],async ()=>{
     const res = await makeRequest.get(`/users/find/${userId}`);
@@ -120,6 +154,8 @@ const {isLoading:PostLoading,data:postsData } = useQuery(['posts',userId],async 
     },
   });
 
+
+
   
 
 
@@ -129,6 +165,11 @@ const handlefollow =()=>{
 }
 
 
+const handleCreateChat = () => {
+  const senderId = currentuser?.mongoDbId;
+  const receiverId = data?.mongoDbId;
+  createChatMutation.mutate({ senderId, receiverId });
+};
 
 
 
@@ -138,14 +179,17 @@ const handlefollow =()=>{
     (
    <div className='ProfilePage'>
       <div className="images">
-     <img src={data.coverpicture?`/uploads/${data.coverpicture}`:DefaultCover} alt="" className='cover'/>
-      <img src={data.profilepicture? `/uploads/${data.profilepicture}`:ALTprofile} alt='pic' className='profilepic'/>
+     <img src={data?.coverpicture?`/uploads/${data?.coverpicture}`:DefaultCover} alt="" className='cover'/>
+      <img src={data?.profilepicture? `/uploads/${data?.profilepicture}`:ALTprofile} alt='pic' className='profilepic'/>
         </div>
       <div className="profilecontainer">
         <div className="userinfo">
             <div className='UserInfoContainer'>
           <div className="left"> 
-          <div className='Followers'>
+          <div className='Followers' onClick={()=>{
+              setShowFollowers(true);
+              setshowFollowInfo(true);
+            }}>
             <div className='FollowersHead' onClick={()=>{
               setShowFollowers(true);
               setshowFollowInfo(true);
@@ -154,7 +198,7 @@ const handlefollow =()=>{
             </div>
             
             <div className='FollowersCount'>
-              <span>{isLoadingFollowers?'0':FollowersData.length}</span>
+              <span>{isLoadingFollowers?'0':FollowersData?.length}</span>
             </div>
          
           </div>
@@ -163,7 +207,10 @@ const handlefollow =()=>{
             <div className="center"> 
             <span>{data?.name}</span>
 
-           <div className='Following'>
+           <div className='Following' onClick={()=>{
+              setShowFollowing(true);
+              setshowFollowInfo(true);
+            }}>
             
             <div className='FollowingHead' onClick={()=>{
               setShowFollowing(true);
@@ -187,10 +234,10 @@ const handlefollow =()=>{
             <span>{PostLoading?'0':postsData?.length}</span>
               
             </div>:
-              <div className="rightMessage">
+              <div className="rightMessage" onClick={handleCreateChat}>
              
               <span>message</span>
-              <SendRoundedIcon className='SendMessageIcon'/>
+              <SendRoundedIcon className='SendMessageIcon' onClick={handleCreateChat}/>
                 
               </div>
             }

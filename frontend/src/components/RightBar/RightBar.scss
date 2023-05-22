@@ -14,7 +14,6 @@
      @include Tablet{
         display: none;
      }
-
     flex:3;
     position: sticky;
     top:50px;
@@ -23,7 +22,7 @@
        display: none;
        
     }
-    height: calc(100vh - 70px);
+    height: calc(100vh - 52px);
     background-color: themed("bgsoft");
         
     .container{

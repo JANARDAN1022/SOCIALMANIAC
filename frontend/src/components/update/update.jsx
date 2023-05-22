@@ -64,11 +64,12 @@ const Update = ({setopenUpdate,user}) => {
        <hr />
         <div className="form">
         <form >
+        <h4 className='h4newname S'> NEW NAME : </h4> <input className='SI' autoComplete='off' type="text" placeholder='NAME'  name='name' onChange={handlechange} />
+         <h4 className='h4location S'> NEW LOCATION : </h4> <input className='SI' autoComplete='off' type="text" placeholder='LOCATION' name='location' onChange={handlechange}/>
+         <h4 className='h4website S'> NEW WEBSITE/PROMOTION : </h4> <input className='SI' autoComplete='off' type="text" placeholder='WEBSITE/PROMOTION' name='website' onChange={handlechange}/>
          <h4>NEW COVER-PICTURE:</h4>   <input  className='inputfile' type="file" onChange={(e)=>setcover(e.target.files[0])}/>
          <h4>NEW PROFILE-PICTURE :</h4>   <input  className='inputfile' type="file" onChange={(e)=>setprofile(e.target.files[0])}/>
-         <h4 className='h4newname'> NEW NAME : </h4> <input autoComplete='off' type="text" placeholder='NAME'  name='name' onChange={handlechange} />
-         <h4 className='h4location'> NEW LOCATION : </h4> <input autoComplete='off' type="text" placeholder='LOCATION' name='location' onChange={handlechange}/>
-         <h4 className='h4website'> NEW WEBSITE/PROMOTION : </h4> <input autoComplete='off' type="text" placeholder='WEBSITE/PROMOTION' name='website' onChange={handlechange}/>
+       
             <button className='updatebtn' onClick={handlesubmit}>Update</button>
         </form>
         </div>
